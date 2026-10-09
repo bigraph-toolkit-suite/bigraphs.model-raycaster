@@ -1,0 +1,154 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.bigraphs.model.bigrids</groupId>
+    <artifactId>model-raycaster</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>bigraph-model-raycaster</name>
+    <url>https://github.com/bigraph-toolkit-suite/bigraphs.model-raycaster</url>
+    <description>
+        A research prototype for real-time 3D visualization of spatial states in
+        cyber-physical system models using raycasting-based rendering of
+        bigraph-based spatial representations.
+    </description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>21</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <bigraph.version>2.4.4</bigraph.version>
+    </properties>
+
+    <dependencies>
+        <!-- core module -->
+        <dependency>
+            <groupId>org.bigraphs.framework</groupId>
+            <artifactId>bigraph-core</artifactId>
+            <version>${bigraph.version}</version>
+        </dependency>
+        <!-- simulation module -->
+        <dependency>
+            <groupId>org.bigraphs.framework</groupId>
+            <artifactId>bigraph-simulation</artifactId>
+            <version>${bigraph.version}</version>
+        </dependency>
+        <!-- visualization module -->
+        <dependency>
+            <groupId>org.bigraphs.framework</groupId>
+            <artifactId>bigraph-visualization</artifactId>
+            <version>${bigraph.version}</version>
+        </dependency>
+        <!-- converter module -->
+        <dependency>
+            <groupId>org.bigraphs.framework</groupId>
+            <artifactId>bigraph-converter</artifactId>
+            <version>${bigraph.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.lwjgl/lwjgl -->
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl</artifactId>
+            <version>3.3.6</version>
+        </dependency>
+        <!-- LWJGL GLFW bindings -->
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-glfw</artifactId>
+            <version>3.3.6</version>
+        </dependency>
+        <!-- LWJGL OpenGL bindings -->
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-opengl</artifactId>
+            <version>3.3.6</version>
+        </dependency>
+        <!-- Native bindings: platform-specific (replace `natives-windows` if on Mac/Linux) -->
+        <!--    Replace natives-windows with:-->
+
+        <!--    natives-macos for macOS -->
+        <!--    natives-windows for Windows -->
+        <!--    natives-linux for Linux -->
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl</artifactId>
+            <version>3.3.6</version>
+            <classifier>natives-linux</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-glfw</artifactId>
+            <version>3.3.6</version>
+            <classifier>natives-linux</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-opengl</artifactId>
+            <version>3.3.6</version>
+            <classifier>natives-linux</classifier>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <minimizeJar>true</minimizeJar>
+                            <generateUniqueDependencyReducedPom>true</generateUniqueDependencyReducedPom>
+                            <finalName>bigrid-raycaster</finalName>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>org.bigraphs.model.raycaster.experimental.RaycastingVisualizerApp</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

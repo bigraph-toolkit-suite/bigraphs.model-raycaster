@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="signatureBaseModel" nsURI="http://org.bigraphs.model" nsPrefix="signatureBaseModel">
+  <eClassifiers xsi:type="ecore:EClass" name="BDynamicSignature" eSuperTypes="signatureBaseModel.ecore#//BKindSignature"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BControl" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="arity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" ordered="false"
+        lowerBound="1" eType="ecore:EEnum signatureBaseModel.ecore#//BControlStatus"
+        defaultValueLiteral="ACTIVE"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bSig" lowerBound="1" eType="ecore:EClass signatureBaseModel.ecore#//BSorting"
+        eOpposite="signatureBaseModel.ecore#//BSorting/bControls"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="BControlStatus">
+    <eLiterals name="ACTIVE"/>
+    <eLiterals name="ATOMIC" value="1"/>
+    <eLiterals name="PASSIVE" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BKindPlaceSorting" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bPlaceSorting" lowerBound="1"
+        eType="ecore:EClass signatureBaseModel.ecore#//BKindSignature" eOpposite="signatureBaseModel.ecore#//BKindSignature/bKindPlaceSorts"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bContainedBy" upperBound="-1"
+        eType="ecore:EClass signatureBaseModel.ecore#//BKindPlaceSorting" eOpposite="signatureBaseModel.ecore#//BKindPlaceSorting/bCanContain"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bCanContain" upperBound="-1"
+        eType="ecore:EClass signatureBaseModel.ecore#//BKindPlaceSorting" eOpposite="signatureBaseModel.ecore#//BKindPlaceSorting/bContainedBy"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BKindSortNonAtomic" abstract="true"
+      eSuperTypes="signatureBaseModel.ecore#//BKindPlaceSorting"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BKindSignature" eSuperTypes="signatureBaseModel.ecore#//BSorting">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bKindPlaceSorts" lowerBound="1"
+        upperBound="-1" eType="ecore:EClass signatureBaseModel.ecore#//BKindPlaceSorting"
+        containment="true" eOpposite="signatureBaseModel.ecore#//BKindPlaceSorting/bPlaceSorting"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BKindSortAtomic" abstract="true" eSuperTypes="signatureBaseModel.ecore#//BKindPlaceSorting"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BSorting" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bControls" upperBound="-1"
+        eType="ecore:EClass signatureBaseModel.ecore#//BControl" containment="true"
+        eOpposite="signatureBaseModel.ecore#//BControl/bSig"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BBasicSignature" eSuperTypes="signatureBaseModel.ecore#//BKindSignature"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VarSpace" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VarSpaceSort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="True" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TrueSort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="False" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FalseSort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Error" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorSort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Locale" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LocaleSort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Route" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RouteSort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WayPoint" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WayPointSort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OccupiedBy" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OccupiedBySort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Robot" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RobotSort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ID" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IDSort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N0" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N0Sort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N1" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N1Sort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N2" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N2Sort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N3" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N3Sort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N4" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N4Sort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N5" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N5Sort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N6" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N6Sort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N7" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N7Sort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N8" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N8Sort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N9" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N9Sort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N10" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="N10Sort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Bat" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BatSort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Pow" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PowSort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SLck" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SLckSort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SLckRef" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SLckRefSort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Mvmt" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MvmtSort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Token" eSuperTypes="signatureBaseModel.ecore#//BControl"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TokenSort" eSuperTypes="signatureBaseModel.ecore#//BKindSortNonAtomic"/>
+</ecore:EPackage>

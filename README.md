@@ -1,7 +1,7 @@
 # Bigrid Raycasting Visualizer
 
 A research prototype for real-time 3D visualization of cyber-physical system states represented as spatial bigraph models. 
-It uses a raycasting-based renderer and was developed for the [user study](https://doi.org/10.5281/zenodo.23117795) of the paper "Interactive Raycasting-Based Visualization for Spatial Formal Models".
+It uses a raycasting-based renderer and was developed for the [user study](https://doi.org/10.5281/zenodo.23117794) of the paper "Interactive Raycasting-Based Visualization for Spatial Formal Models".
 
 ![Workflow of the Bigrid raycasting procedure](assets/flow.png)
 
